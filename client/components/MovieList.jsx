@@ -4,7 +4,7 @@ import Movie from './Movie.jsx';
 var MovieList = (props) => {
     return (
       <div className="movie-list">
-        {props.movies.map(movie => <Movie movie = {movie} watchedOnCategory = {props.watchedOnCategory}/>)}
+        {props.movies.map(movie => <Movie movie={movie} isWatchedCategory={props.isWatchedCategory}/>)}
       </div>
     );
   };
