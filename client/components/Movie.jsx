@@ -1,10 +1,12 @@
 import React from 'react';
+import Description from './Description.jsx';
 
 export default class Movie extends React.Component {
     constructor(props) {
         super(props),
         this.state ={
-            watched : false
+            watched : false,
+            description : false
         }
         this.shiftWatch = this.shiftWatch.bind(this)
     }
@@ -15,17 +17,24 @@ export default class Movie extends React.Component {
         })
     }
 
+    showDescription(event) {
+        this.setState({
+            description: !this.state.description
+        })
+    }
+
 
     render(){
 
         if (this.props.isWatchedCategory === this.state.watched) {
             return (
                 <div className="movie">
-                    <span className="movie" >{this.props.movie.title}</span>
-                    <button onClick={() => this.shiftWatch()} className="movie-watched">
-                        {this.state.watched && <span>Watched</span>}
-                        {!this.state.watched && <span>To Watch</span>}
-                    </button>
+                    <span onClick = {()=> this.showDescription()} className="movie" >{this.props.movie.title}</span>
+                    {/* <button onClick={() => this.shiftWatch()} className="movie-watched"> */}
+                        {/* {this.state.watched && <span>Watched</span>}
+                        {!this.state.watched && <span>To Watch</span>} */}
+                    {/* </button> */}
+                    {this.state.description && <Description movie = {this.props.movie} watched = {this.state.watched} shiftWatch = {this.shiftWatch} /> }
                 </div>
             );
         } else {
