@@ -29,7 +29,7 @@ export default class Movie extends React.Component {
         if (this.props.isWatchedCategory === this.state.watched) {
             return (
                 <div className="movie">
-                    <span onClick = {()=> this.showDescription()} className="movie" >{this.props.movie.title}</span>
+                    <span onClick = {()=> this.showDescription()} className="movie" >{this.props.movie.Title}</span>
                     {/* <button onClick={() => this.shiftWatch()} className="movie-watched"> */}
                         {/* {this.state.watched && <span>Watched</span>}
                         {!this.state.watched && <span>To Watch</span>} */}

@@ -32,7 +32,7 @@ export default class Category extends React.Component {
                     <button onClick = {(event) => this.changeToWatched()}>Watched</button>
                     <button onClick = {(event) => this.changeToToWatch()}>To Watch</button>
                 </div>
-                <br/>
+                <br></br>
                 <div>
                     <MovieList movies={this.props.movies} isWatchedCategory={this.state.isWatchedCategory} />
                 </div>

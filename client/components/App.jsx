@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Search from './Search.jsx';
 import AddMovies from './AddMovies.jsx';
 import Category from './Category.jsx';
@@ -8,20 +9,28 @@ export default class App extends React.Component {
 
     constructor(props) {
         super(props),
-        this.originalMovies = exampleData;
         this.state = {
-            movies: exampleData,
+            movies: [{
+                Title: 'Hackers',
+                Year: 2016,
+                Metascore: 5.0
+                }, {
+                Title: 'Mean Girls', 
+                Year: 2015,
+                Metascore: 4.6
+                }
+            ],
             newMovieName:"",
         }
         this.searchItem = this.searchItem.bind(this);
         this.getMovieName = this.getMovieName.bind(this);
-        this.addAMovie = this.addAMovie.bind(this);      
+        this.addAMovie = this.addAMovie.bind(this);
     }
 
     searchItem(name) {
         var selectMovies = [];
-        for (var i = 0; i < this.originalMovies.length;i++) {
-            let movieName = this.originalMovies[i].title.toUpperCase();
+        for (var i = 0; i < this.state.movies.length;i++) {
+            let movieName = this.state.movies[i].title.toUpperCase();
             name = name.toUpperCase();
             if (movieName.includes(name)){
                 selectMovies.push(this.originalMovies[i])
@@ -41,20 +50,28 @@ export default class App extends React.Component {
         })
     }
 
-    addAMovie(name) {
-        var singleMovie = {};
-        // var newList = [];
-        singleMovie.title = name;
-        // newList = 
-        this.state.movies.push(singleMovie)
-        this.setState ({
-            movies: exampleData,
-            newMovieName: ""
+   addAMovie(name){
+       var newName = name.split(' ').join('+')
+       var query = 'https://api.themoviedb.org/3/search/movie?api_key=17b834e74ca4466599e2d94b11d482ab&query=' + newName;
+
+       axios.get(query)
+        .then((response) => {
+            var individual = {
+                Title: response.data.results[0].original_title,
+                Year: response.data.results[0].release_date.slice(0,4),
+                Metascore: response.data.results[0].vote_average
+            }
+
+        var movieList = this.state.movies
+        movieList.push(individual)
+        this.setState({
+            movies: movieList
         })
-    }
-    //these 2 functions does not work very well yet, have some kinda of delay 
-    // after fix it, i need to think how to use this state to filter the movies in the movie list 
-   
+       })
+        .catch((error)=>{
+            alert('There is no such movie')
+        })
+   }
     
     render() {
         return (

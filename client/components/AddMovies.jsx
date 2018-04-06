@@ -6,7 +6,7 @@ var AddMovies = (props) => (
       <input onChange ={(event)=> props.getMovieName(event)} className="form-control" type="text" placeholder="Add Movie Title Here"/>
       <button onClick = {(event) => props.addAMovie(props.newMovieName)} className="btn hidden-sm-down" >
         Add
-        <span className="glyphicon glyphicon-search" text ="go"></span>
+        <span className="glyphicon glyphicon-search" text ="go"> </span>
       </button>
     </div> 
   );
